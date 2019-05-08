@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TodoActions from '../../store/actions/todos';
 
-const TodoList = ({ todos, addTodo }) => (
+const TodoList = ({ todos, addTodo, removeTodo }) => (
   <>
     <ul>
       {todos.map(todo => (
-        <li key={todo.id}>{todo.text}</li>
+        <li key={todo.id}>
+          {todo.text} <button onClick={() => removeTodo(todo.id)}>Remover</button>{' '}
+        </li>
       ))}
     </ul>
     <button onClick={() => addTodo('Entrar na Comunidade')}>Adicionar</button>
@@ -17,6 +19,7 @@ const TodoList = ({ todos, addTodo }) => (
 );
 
 TodoList.propTypes = {
+  removeTodo: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
